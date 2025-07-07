@@ -55,13 +55,13 @@ public class UserRepository {
     }
 
     public List<Produit> findByName(String name) throws SQLException {
-    String sql = "SELECT * FROM produit WHERE nom = '" + name + "'";
+    String query = "SELECT * FROM produit WHERE nom = '" + name + "'";
 
     List<Produit> produits = new ArrayList<>();
 
     try (Connection conn = dataSource.getConnection();
          Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery(sql)) {
+         ResultSet rs = stmt.executeQuery(query)) {
 
         while (rs.next()) {
             produits.add(new Produit(
