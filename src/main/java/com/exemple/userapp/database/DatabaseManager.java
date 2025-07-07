@@ -14,7 +14,6 @@ public class DatabaseManager {
             String baseQuery = "SELECT * FROM users WHERE ";
             String finalQuery = baseQuery + conditionClause;
 
-            // Injection possible si `conditionClause` est mal construit
             ResultSet rs = stmt.executeQuery(finalQuery);
 
             while (rs.next()) {
