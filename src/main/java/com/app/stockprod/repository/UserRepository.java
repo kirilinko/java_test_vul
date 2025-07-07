@@ -36,11 +36,11 @@ public class UserRepository {
 
     public User findByEmail(String email) throws SQLException {
     	String sql = "SELECT * FROM utilisateur WHERE email = '";
-        String final_sql = sql + email + "'";
+        String finalsql = sql + email + "'";
         
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(final_sql)) {
+             ResultSet rs = stmt.executeQuery(finalsql)) {
             if (rs.next()) {
                 return new User(
                     rs.getInt("id"),
