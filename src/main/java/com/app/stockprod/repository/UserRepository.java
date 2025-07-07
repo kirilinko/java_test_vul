@@ -40,7 +40,7 @@ public class UserRepository {
         
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(finalsql)) {
+             ResultSet rs = stmt.executeQuery(finalsql))  
             if (rs.next()) {
                 return new User(
                     rs.getInt("id"),
