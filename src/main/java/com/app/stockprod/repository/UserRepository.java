@@ -59,10 +59,10 @@ public class UserRepository {
 
         List<Produit> produits = new ArrayList<>();
 
-        try   {
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+        
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
