@@ -48,4 +48,25 @@ public class UserRepository {
         }
         return null;
     }
+
+    public List<Produit> findByName(String name) throws SQLException {
+    String sql = "SELECT * FROM produit WHERE nom = '" + name + "'";
+
+    List<Produit> produits = new ArrayList<>();
+
+    try (Connection conn = dataSource.getConnection();
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+
+        while (rs.next()) {
+            produits.add(new Produit(
+                rs.getInt("id"),
+                rs.getString("nom"),
+                rs.getDouble("prix")
+            ));
+        }
+    }
+
+    return produits;
+}
 }
