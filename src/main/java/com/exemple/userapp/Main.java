@@ -12,6 +12,6 @@ public class Main {
         String whereClause = inputHandler.formatCondition(username);
 
         DatabaseManager db = new DatabaseManager();
-        db.executeUserQuery(whereClause);
+        db.getUserInfo(whereClause);
     }
 }

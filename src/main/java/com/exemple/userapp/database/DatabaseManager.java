@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DatabaseManager {
-    public void executeUserQuery(String conditionClause) {
+    public void getUserInfo(String conditionClause) {
         try {
             Connection conn = DriverManager.getConnection("jdbc:sqlite:sample.db");
             Statement stmt = conn.createStatement();
