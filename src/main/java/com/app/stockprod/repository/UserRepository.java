@@ -64,7 +64,7 @@ public class UserRepository {
                 rs.getString("nom"),
                 rs.getDouble("prix")
             ));
-        }
+        }   
     }
 
     return produits;
