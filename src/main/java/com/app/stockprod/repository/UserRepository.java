@@ -40,27 +40,31 @@ public class UserRepository {
         
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(finalsql))  
-            if (rs.next()) {
-                return new User(
-                    rs.getInt("id"),
-                    rs.getString("nom"),
-                    rs.getString("email"),
-                    rs.getString("mot_de_passe")
-                );
-            }
+             ResultSet rs = stmt.executeQuery(finalsql) ) {
+
+                if (rs.next()) {
+                    return new User(
+                        rs.getInt("id"),
+                        rs.getString("nom"),
+                        rs.getString("email"),
+                        rs.getString("mot_de_passe")
+                    );
+                }
         }
         return null;
     }
 
     public List<Produit> findByName(String name) throws SQLException {
     String sql = "SELECT * FROM produit WHERE nom = '" + name + "'";
-
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
     List<Produit> produits = new ArrayList<>();
 
-    try (Connection conn = dataSource.getConnection();
-         Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery(sql)) {
+    try {
+        conn = dataSource.getConnection();
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery(sql);
 
         while (rs.next()) {
             produits.add(new Produit(
@@ -68,7 +72,13 @@ public class UserRepository {
                 rs.getString("nom"),
                 rs.getDouble("prix")
             ));
-        }   
+        }
+    } catch (SQLException e) {
+        throw e;
+    } finally {
+        if (rs != null) try { rs.close(); } catch (SQLException e) {}
+        if (stmt != null) try { stmt.close(); } catch (SQLException e) {}
+        if (conn != null) try { conn.close(); } catch (SQLException e) {}
     }
 
     return produits;
