@@ -33,10 +33,18 @@ public class ProduitRepository {
  
 
     public void deleteById(int id) throws SQLException {
-        String sql = "DELETE FROM produit WHERE id = '" + id + "'";
-        try (Connection conn = dataSource.getConnection();
-             Statement stms = conn.prepareStatement(sql)) {
-           
+    String sql = "DELETE FROM produit WHERE id = " + id;
+
+    try (Connection conn = dataSource.getConnection();
+         Statement stmt = conn.createStatement()) {
+
+        int rowsAffected = stmt.executeUpdate(sql);
+
+        if (rowsAffected > 0) {
+            System.out.println("Produit supprimé avec succès.");
+        } else {
+            System.out.println("Aucun produit trouvé avec cet ID.");
         }
     }
+}
 }
