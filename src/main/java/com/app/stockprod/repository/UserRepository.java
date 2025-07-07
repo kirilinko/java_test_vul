@@ -59,10 +59,10 @@ public class UserRepository {
 
         List<Produit> produits = new ArrayList<>();
 
-        try (Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+        try   {
 
-            // Aucun paramètre n'est défini, car on utilise la concaténation directe
+            Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
