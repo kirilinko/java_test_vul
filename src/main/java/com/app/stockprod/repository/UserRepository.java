@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.app.stockprod.model.User;
-
+import com.app.stockprod.model.Produit;
 @Repository
 public class UserRepository {
 
