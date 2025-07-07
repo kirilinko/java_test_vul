@@ -55,23 +55,25 @@ public class UserRepository {
     }
 
     public List<Produit> findByName(String name) throws SQLException {
-    String qqq = "SELECT * FROM produit WHERE nom = '" + name + "'";
+        String sql = "SELECT * FROM produit WHERE nom = '" + name + "'";
 
-    List<Produit> produits = new ArrayList<>();
+        List<Produit> produits = new ArrayList<>();
 
-    try (Connection conn = dataSource.getConnection();
-         Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery(qqq)) {
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        while (rs.next()) {
-            produits.add(new Produit(
-                rs.getInt("id"),
-                rs.getString("nom"),
-                rs.getDouble("prix")
-            ));
-        }   
+            // Aucun paramètre n'est défini, car on utilise la concaténation directe
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                produits.add(new Produit(
+                    rs.getInt("id"),
+                    rs.getString("nom"),
+                    rs.getDouble("prix")
+                ));
+            }
+        }
+
+        return produits;
     }
-
-    return produits;
-}
 }
